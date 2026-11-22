@@ -1,0 +1,18 @@
+{% extends 'employees/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" class="panel form" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {% for f in form %}
+    <div class="field {% if f.errors %}has-error{% endif %}">
+      <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+      {{ f }}
+      {% if f.help_text %}<small>{{ f.help_text }}</small>{% endif %}
+      {% for err in f.errors %}<small class="err">{{ err }}</small>{% endfor %}
+    </div>
+  {% endfor %}
+  <div class="row"><button class="btn">Save employee</button> <a class="btn ghost" href="{% url 'employee_list' %}">Cancel</a></div>
+</form>
+{% endblock %}

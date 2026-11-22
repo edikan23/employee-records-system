@@ -1,0 +1,32 @@
+{% extends 'employees/base.html' %}
+{% block content %}
+<h1>Employee Records Management System</h1>
+<p class="lead">Welcome to TechSolutions Inc.</p>
+{% if not user.is_authenticated %}
+  <p>Sign in to view and manage employee records.</p>
+  <p><a class="btn" href="{% url 'login' %}">Sign in</a></p>
+{% elif can_manage %}
+  <section class="stats">
+    <div><b>{{ total }}</b>Employees</div>
+    <div><b>{{ active }}</b>Active</div>
+    <div><b>{{ on_leave }}</b>On leave</div>
+  </section>
+  <div class="cols">
+    <section class="panel"><h2>By department</h2>
+      {% for d in by_department %}
+        <div class="bar-row"><span>{{ d.name }}</span><i style="--w:{{ d.n }}"></i><em>{{ d.n }}</em></div>
+      {% empty %}<p class="muted">No departments in use yet.</p>{% endfor %}
+    </section>
+    <section class="panel"><h2>Recently registered</h2>
+      {% for e in recent %}<p><a href="{{ e.get_absolute_url }}">{{ e.full_name }}</a> <span class="muted">{{ e.job_title }}</span></p>
+      {% empty %}<p class="muted">No employees yet. <a href="{% url 'employee_create' %}">Register the first one</a>.</p>{% endfor %}
+    </section>
+  </div>
+{% else %}
+  {% if my_record %}
+    <p><a class="btn" href="{{ my_record.get_absolute_url }}">View my employee record</a></p>
+  {% else %}
+    <p class="panel">Your account is not linked to an employee record yet. Ask an HR manager to link it.</p>
+  {% endif %}
+{% endif %}
+{% endblock %}

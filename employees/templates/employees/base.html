@@ -1,0 +1,35 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Employee Records Management System{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'employees/style.css' %}">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="{% url 'home' %}">TechSolutions <span>Employee Records</span></a>
+  <nav>
+    {% if can_manage %}
+      <a href="{% url 'employee_list' %}">Employees</a>
+      <a href="{% url 'employee_create' %}">Register</a>
+    {% endif %}
+    {% if role == 'admin' %}<a href="{% url 'admin:index' %}">Admin dashboard</a>{% endif %}
+  </nav>
+  <div class="who">
+    {% if user.is_authenticated %}
+      <span class="chip">{{ user.username }} · {{ role }}</span>
+      <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="link">Sign out</button></form>
+    {% else %}
+      <a href="{% url 'login' %}">Sign in</a>
+      <a class="btn small" href="{% url 'signup' %}">Create account</a>
+    {% endif %}
+  </div>
+</header>
+<main>
+  {% for m in messages %}<div class="msg {{ m.tags }}" role="status">{{ m }}<button type="button" data-dismiss aria-label="Dismiss">×</button></div>{% endfor %}
+  {% block content %}{% endblock %}
+</main>
+<script src="{% static 'employees/app.js' %}"></script>
+</body>
+</html>

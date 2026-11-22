@@ -1,0 +1,8 @@
+{% extends 'employees/base.html' %}
+{% block content %}
+<h1>Delete {{ employee.full_name }}?</h1>
+<form method="post" class="panel">{% csrf_token %}
+  <p>This permanently removes {{ employee.employee_id }} and cannot be undone.</p>
+  <button class="btn danger-btn">Delete employee</button> <a class="btn ghost" href="{{ employee.get_absolute_url }}">Keep employee</a>
+</form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'employees/base.html' %}
+{% block title %}{{ employee.full_name }}{% endblock %}
+{% block content %}
+<div class="head"><h1>{{ employee.full_name }}</h1>
+  {% if can_manage %}<div><a class="btn ghost" href="{% url 'employee_update' employee.pk %}">Edit</a>
+  <a class="btn danger-btn" href="{% url 'employee_delete' employee.pk %}">Delete</a></div>{% endif %}</div>
+<section class="panel"><dl>
+  <dt>Employee ID</dt><dd>{{ employee.employee_id }}</dd>
+  <dt>Status</dt><dd><span class="pill {{ employee.status }}">{{ employee.get_status_display }}</span></dd>
+  <dt>Job title</dt><dd>{{ employee.job_title }}</dd>
+  <dt>Department</dt><dd>{{ employee.department|default:"—" }}</dd>
+  <dt>Email</dt><dd>{{ employee.email }}</dd>
+  <dt>Phone</dt><dd>{{ employee.phone|default:"—" }}</dd>
+  <dt>Hire date</dt><dd>{{ employee.hire_date }}</dd>
+  <dt>Salary</dt><dd>{% if employee.salary %}{{ employee.salary }}{% else %}—{% endif %}</dd>
+  <dt>Linked account</dt><dd>{{ employee.user.username|default:"Not linked" }}</dd>
+</dl></section>
+{% if can_manage %}<p><a href="{% url 'employee_list' %}">← Back to employees</a></p>{% endif %}
+{% endblock %}

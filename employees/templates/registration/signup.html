@@ -1,0 +1,10 @@
+{% extends 'employees/base.html' %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+<h1>Create account</h1>
+<form method="post" class="panel form narrow" novalidate>{% csrf_token %}
+  {{ form.non_field_errors }}
+  {% for f in form %}<div class="field"><label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}{% if f.help_text %}<small>{{ f.help_text|safe }}</small>{% endif %}{% for e in f.errors %}<small class="err">{{ e }}</small>{% endfor %}</div>{% endfor %}
+  <button class="btn">Create account</button>
+</form>
+{% endblock %}

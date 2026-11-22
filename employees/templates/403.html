@@ -1,0 +1,5 @@
+{% extends 'employees/base.html' %}
+{% block content %}
+<h1>Access denied</h1>
+<p class="panel">Your role does not have permission to view this page. <a href="{% url 'home' %}">Back to home</a></p>
+{% endblock %}
