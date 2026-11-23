@@ -87,4 +87,4 @@ Foundation and core features are in place. Further modules can extend reporting,
 
 **Potential Use:** TechSolutions currently keeps employee data in spreadsheets. This library could let HR upload those spreadsheets to create employee records in bulk and export employee lists for reporting, instead of retyping records.
 
-**Decision:** Test later. It is not added to this project now. Before adopting it, check that it supports the project's Django version and review its documentation and maintenance status.
+**Decision:** Test later. It is not added to this project now. Before adopting it, check that it supports the project's Django version and review its documentation and maintenance status.source venv/bin/activate

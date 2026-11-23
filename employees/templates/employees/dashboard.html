@@ -1,0 +1,64 @@
+{% extends 'employees/base.html' %}
+{% load static %}
+{% block title %}Employee Dashboard{% endblock %}
+{% block content %}
+<h1>Employee Dashboard</h1>
+<p class="lead" id="dashboard-status" role="status" aria-live="polite">Showing {{ employees|length }} employees.</p>
+<p class="muted">Practice dashboard: employees added here appear in your browser only and are not saved.</p>
+
+<div class="toolbar">
+  <button type="button" class="btn ghost" id="toggle-list" aria-expanded="true" aria-controls="employee-list">Hide Employees</button>
+</div>
+
+<section id="employee-list" class="emp-list" aria-label="Employee list">
+  <p id="empty-state" class="muted" hidden>No employees to show.</p>
+  {% for e in employees %}
+  <article class="emp-card" data-active="true">
+    <div class="emp-top">
+      <div>
+        <h3>{{ e.name }}</h3>
+        <p>{{ e.title }} · {{ e.department }}</p>
+        <p class="muted">{{ e.email }}</p>
+      </div>
+      <span class="pill active">Active</span>
+    </div>
+    <div class="emp-actions">
+      <button type="button" class="btn ghost small" data-action="toggle-status">Mark inactive</button>
+      <button type="button" class="btn ghost small" data-action="remove">Remove</button>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<form id="employee-form" class="panel form" novalidate>
+  <h2>Add employee</h2>
+  <div id="form-messages" class="form-msg" role="status" aria-live="polite" hidden></div>
+
+  <div class="field">
+    <label for="emp-name">Full name</label>
+    <input type="text" id="emp-name" name="name" autocomplete="name" required>
+    <small class="err" id="emp-name-error"></small>
+  </div>
+  <div class="field">
+    <label for="emp-email">Email</label>
+    <input type="email" id="emp-email" name="email" autocomplete="email" required>
+    <small class="err" id="emp-email-error"></small>
+  </div>
+  <div class="field">
+    <label for="emp-department">Department</label>
+    <select id="emp-department" name="department" required>
+      <option value="">Select a department</option>
+      {% for d in departments %}<option value="{{ d }}">{{ d }}</option>{% endfor %}
+    </select>
+    <small class="err" id="emp-department-error"></small>
+  </div>
+  <div class="field">
+    <label for="emp-title">Job title</label>
+    <input type="text" id="emp-title" name="title" required>
+    <small class="err" id="emp-title-error"></small>
+  </div>
+  <button type="submit" class="btn">Add Employee</button>
+</form>
+
+<script src="{% static 'employees/dashboard.js' %}"></script>
+{% endblock %}
