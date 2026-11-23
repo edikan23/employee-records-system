@@ -51,3 +51,6 @@ dl{display:grid;grid-template-columns:160px 1fr;gap:.6rem 1rem;margin:0}dt{color
 .msg{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 1rem;margin-bottom:1rem;border-radius:6px;border:1px solid var(--ok);color:var(--ok);background:var(--panel)}
 .msg.error{border-color:var(--warn);color:var(--warn)}.msg button{background:none;border:0;color:inherit;font-size:1.2rem;cursor:pointer}
 @media (max-width:600px){dl{grid-template-columns:1fr}.bar{gap:.8rem}}
+
+.guide{margin:1.2rem 0}
+.guide .panel{margin-top:.8rem;max-width:620px}
