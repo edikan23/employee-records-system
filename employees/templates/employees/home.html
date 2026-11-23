@@ -2,6 +2,13 @@
 {% block content %}
 <h1>Employee Records Management System</h1>
 <p class="lead">Welcome to TechSolutions Inc.</p>
+<section class="guide">
+  <button type="button" class="btn ghost" id="guide-toggle" aria-expanded="false" aria-controls="guide-body">Show quick guide</button>
+  <div id="guide-body" class="panel" hidden>
+    <h2>Quick guide</h2>
+    <p>Admins manage everything. HR managers register, edit, search and delete employee records. Employees can view their own record.</p>
+  </div>
+</section>
 {% if not user.is_authenticated %}
   <p>Sign in to view and manage employee records.</p>
   <p><a class="btn" href="{% url 'login' %}">Sign in</a></p>

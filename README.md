@@ -64,3 +64,27 @@ requirements.txt           dependencies
 
 ## Current Status
 Foundation and core features are in place. Further modules can extend reporting, departments management and audit history.
+
+## Module 2 Notes
+
+### Servers
+- `python manage.py runserver`: Django's development server. It reloads when code changes and is meant for development and testing only.
+- `gunicorn employee_records_system.wsgi:application`: a production-style application server. It does not reload on changes and is the server used on Heroku.
+
+### Debugging with Browser DevTools
+- Used the Elements panel to inspect the page and made a temporary heading change that reset on refresh.
+- Checked the Console and Network panels for errors and requests.
+- Found that the site had no favicon, so the browser requested `/favicon.ico`. Added a `<link rel="icon">` to `base.html` to fix it.
+
+### Frontend enhancement
+- Added a "Show quick guide" button on the home page that shows and hides a short guide box using HTML, CSS and JavaScript.
+
+## Open-Source Component Evaluation
+
+**Component Name:** django-import-export
+
+**Purpose:** A Django library for importing and exporting data in formats such as CSV and Excel, with support in the Django admin.
+
+**Potential Use:** TechSolutions currently keeps employee data in spreadsheets. This library could let HR upload those spreadsheets to create employee records in bulk and export employee lists for reporting, instead of retyping records.
+
+**Decision:** Test later. It is not added to this project now. Before adopting it, check that it supports the project's Django version and review its documentation and maintenance status.source venv/bin/activate
