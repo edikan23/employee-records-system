@@ -19,6 +19,10 @@ if not DEBUG and SECRET_KEY.startswith("dev-only"):
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,.herokuapp.com").split(",")
 CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
 
+
+if DEBUG:  # Codespaces forwards requests with a localhost origin
+    CSRF_TRUSTED_ORIGINS += ["https://localhost:8000", "https://127.0.0.1:8000"]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
