@@ -98,15 +98,8 @@ def employee_delete(request, pk):
     return render(request, "employees/employee_confirm_delete.html", {"employee": employee})
 
 
-SAMPLE_EMPLOYEES = [
-    {"name": "Ada Okafor", "email": "ada@techsolutions.test", "department": "Engineering", "title": "Backend Developer"},
-    {"name": "Tunde Bello", "email": "tunde@techsolutions.test", "department": "Engineering", "title": "Frontend Developer"},
-    {"name": "Ngozi Eze", "email": "ngozi@techsolutions.test", "department": "Finance", "title": "Accountant"},
-]
-DEPARTMENTS = ["Engineering", "Finance", "Human Resources", "Operations"]
-
-
+@manager_required
 def dashboard(request):
-    """Client-side practice dashboard: JavaScript handles the form and the list."""
-    return render(request, "employees/dashboard.html",
-                  {"employees": SAMPLE_EMPLOYEES, "departments": DEPARTMENTS})
+    """Employee Records page: reads employees from the database."""
+    employees = Employee.objects.select_related("department")
+    return render(request, "employees/dashboard.html", {"employees": employees})
