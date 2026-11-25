@@ -1,3 +1,5 @@
+from datetime import date
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -32,3 +34,16 @@ class EmployeeForm(forms.ModelForm):
             free |= Q(pk=self.instance.user_id)
         self.fields["user"].queryset = User.objects.filter(free).order_by("username")
         self.fields["user"].required = False
+
+
+class AddEmployeeForm(forms.ModelForm):
+    """Short form used on the Employee Records page."""
+
+    class Meta:
+        model = Employee
+        fields = ["first_name", "last_name", "email", "department", "job_title", "hire_date"]
+        widgets = {"hire_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["hire_date"].initial = date.today

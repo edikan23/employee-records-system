@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import EmployeeForm, SignUpForm
+from .forms import AddEmployeeForm, EmployeeForm, SignUpForm
 from .models import Department, Employee
 from .roles import can_manage, manager_required
 
@@ -71,7 +71,7 @@ def employee_create(request):
     if request.method == "POST" and form.is_valid():
         employee = form.save()
         messages.success(request, f"{employee.full_name} was registered as {employee.employee_id}.")
-        return redirect(employee)
+        return redirect("employee_list")
     return render(request, "employees/employee_form.html", {"form": form, "title": "Register employee"})
 
 
@@ -100,6 +100,14 @@ def employee_delete(request, pk):
 
 @manager_required
 def dashboard(request):
-    """Employee Records page: reads employees from the database."""
+    """Employee Records page: lists employees from the database and adds new ones."""
+    if request.method == "POST":
+        form = AddEmployeeForm(request.POST)
+        if form.is_valid():
+            employee = form.save()
+            messages.success(request, f"{employee.full_name} was added as {employee.employee_id}.")
+            return redirect("dashboard")
+    else:
+        form = AddEmployeeForm()
     employees = Employee.objects.select_related("department")
-    return render(request, "employees/dashboard.html", {"employees": employees})
+    return render(request, "employees/dashboard.html", {"employees": employees, "form": form})

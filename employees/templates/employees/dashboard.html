@@ -4,7 +4,28 @@
 {% block content %}
 <h1>Employee Records</h1>
 <p class="lead" id="dashboard-status" role="status" aria-live="polite">Showing {{ employees|length }} employees.</p>
-<p class="muted">These employees are loaded from the database.</p>
+<p class="muted">Employees are stored in the database. New employees are validated by Django before they are saved.</p>
+
+<section class="panel" id="add-employee">
+  <h2>Add employee</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.errors %}
+      <div class="form-msg error" role="alert">Please correct the errors below. The employee was not saved.</div>
+    {% endif %}
+    {{ form.non_field_errors }}
+    <div class="form-grid">
+      {% for f in form %}
+      <div class="field {% if f.errors %}has-error{% endif %}">
+        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+        {{ f }}
+        {% for err in f.errors %}<small class="err">{{ err }}</small>{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn">Add Employee</button>
+  </form>
+</section>
 
 <div class="toolbar">
   <button type="button" class="btn ghost" id="toggle-list" aria-expanded="true" aria-controls="employee-list">Hide Employees</button>

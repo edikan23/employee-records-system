@@ -54,3 +54,8 @@ dl{display:grid;grid-template-columns:160px 1fr;gap:.6rem 1rem;margin:0}dt{color
 
 .guide{margin:1.2rem 0}
 .guide .panel{margin-top:.8rem;max-width:620px}
+/* Add Employee section */
+#add-employee{margin:1rem 0 1.5rem}
+#add-employee .form-msg{margin-bottom:1rem}
+#add-employee .btn{margin-top:1rem}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
