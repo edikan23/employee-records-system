@@ -17,7 +17,8 @@ if not DEBUG and SECRET_KEY.startswith("dev-only"):
     raise RuntimeError("Set the SECRET_KEY environment variable in production.")
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,.herokuapp.com").split(",")
-CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
+source venv/bin/activate
+git stRUSTED_ORIGINS = ["https://*.herokuapp.com"]
 
 
 if DEBUG:  # Codespaces forwards requests with a localhost origin
